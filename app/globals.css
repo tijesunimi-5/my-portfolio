@@ -7,15 +7,29 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+/* .heropage {
+  background: url('/pc.jpg'), no-repeat;
+  background-size: cover;
+} */
+
+.overlay {
+  background: rgba(242, 234, 201, 0.2);
+  width: 800px;
+  height: 80vh;
+  position: absolute;
+}
+.welcomeText {
+  -webkit-text-stroke: 2px #000;
 }
