@@ -33,3 +33,9 @@ body {
 .welcomeText {
   -webkit-text-stroke: 2px #000;
 }
+.card {
+  box-shadow: 1px 1px 10px 2px #ccc, -1px -1px 6px 2px #333;
+}
+.form {
+  box-shadow: 2px 2px 9px 2px #000, -3px -3px 8px 2px #ccc;
+}

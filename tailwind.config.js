@@ -12,6 +12,7 @@ module.exports = {
         foreground: "var(--foreground)",
         color1: "#8A8467",
         color2: "#F2EAC9",
+        color3: "#8C7264",
       },
       backgroundColor: {
         bg1: "#4B4D39",
@@ -34,6 +35,8 @@ module.exports = {
         bg8i: "#ECDCF4",
         bg8ii: "#F3ECDE",
         bg8iii: "#272932",
+        bg9: "#8C7264",
+        bg9i: "#F2F2F2",
       },
     },
   },
