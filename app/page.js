@@ -1,9 +1,43 @@
+"use client";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import Image from "next/image";
-import Link from "next/link";
+import { useRef, useState } from "react";
 
 export default function Home() {
+  const nameRef = useRef("");
+  const messageRef = useRef("");
+  const [message, setMessage] = useState();
+
+  const reviewHandler = (e) => {
+    e.preventDefault();
+    const nameInput = nameRef.current.value;
+    const messageInput = messageRef.current.value;
+
+    if (!nameInput || !messageInput) {
+      setMessage(
+        <p className="text-3xl w-[620px] mx-10 text-white bg-red-600 mb-5">
+          Fill all fields
+        </p>
+      );
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+      return;
+    }
+    setMessage(
+      <p className="text-3xl w-[620px]  mx-10 text-white bg-green-600 mb-5">
+        Your review has been submitted, Thank you!
+      </p>
+    );
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
+    console.log(nameInput, messageInput);
+  };
+
+  const toggleReview = (e) => {
+    e.preventDefault();
+  };
   return (
     <section className="">
       <div className="heropage relative bg-bg9 w-[800px] h-[79vh]">
@@ -128,8 +162,9 @@ export default function Home() {
               <b>Why choose codelight to handle your projects?</b> - I'm always
               available, fast, and reliable...{" "}
               <a href="#about" className="underline">
-                See more...
+                See more
               </a>
+              ...
             </li>
           </ul>
         </div>
@@ -245,9 +280,11 @@ export default function Home() {
           / expectation), I will code it to life.
         </p>
 
-        <Button styles={"text-3xl my-7 w-[300px] font-extrabold text-white"}>
-          Donwload CV
-        </Button>
+        <a href="/cv.pdf" download={"Tijesunimi-Samuel.cv.pdf"}>
+          <Button styles={"text-3xl my-7 w-[300px] font-extrabold text-color3"}>
+            Donwload CV
+          </Button>
+        </a>
       </div>
 
       {/* contact-section */}
@@ -257,13 +294,14 @@ export default function Home() {
         </h1>
         <form className="form flex flex-col w-[700px] bg-bg9 rounded-lg mx-12 mt-5">
           <div className="my-5 mx-4 relative">
-            <label htmlFor="name" className="text-3xl font-semibold mt-1">
-              Name -{" "}
+            <label htmlFor="email" className="text-3xl font-semibold mt-1">
+              Email -{" "}
             </label>
             <input
-              type="text"
-              id="name"
+              type="email"
+              id="email"
               className="w-[550px] h-10 rounded-lg text-3xl px-2"
+              ref={nameRef}
             />
           </div>
           <div>
@@ -279,15 +317,20 @@ export default function Home() {
               rows={7}
               cols={42}
               className=" rounded-lg mx-5 text-3xl px-2"
+              ref={messageRef}
             ></textarea>
           </div>
-          <Button styles={"text-3xl my-5 w-[200px]"}>Send</Button>
+          <Button styles={"text-3xl my-5 w-[200px]"} onClick={reviewHandler}>
+            Send
+          </Button>
+
+          <div className="text-center">{message}</div>
         </form>
       </div>
 
       {/* reviews */}
       <div className="pb-20 bg-bg9i w-[800px]">
-        <Button styles={"text-3xl mx-10"}>See Reviews</Button>
+        <Button styles={"text-3xl mx-10"} onClick={toggleReview}>See Reviews</Button>
         <div className="reviews"></div>
       </div>
     </section>
