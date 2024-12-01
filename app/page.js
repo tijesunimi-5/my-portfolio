@@ -1,22 +1,30 @@
 "use client";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Home() {
   const nameRef = useRef("");
   const messageRef = useRef("");
   const [message, setMessage] = useState();
+  const [reviews, setReviews] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const reviewHandler = (e) => {
+  useEffect(() => {
+    if (reviews) {
+      setIsLoading(false); // Data is available, stop loading
+    }
+  }, [reviews]);
+  const reviewHandler = async (e) => {
     e.preventDefault();
-    const nameInput = nameRef.current.value;
+    const emailInput = nameRef.current.value;
     const messageInput = messageRef.current.value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!nameInput || !messageInput) {
+    if (!emailInput || !messageInput || !emailRegex.test(emailInput)) {
       setMessage(
         <p className="text-3xl w-[620px] mx-10 text-white bg-red-600 mb-5">
-          Fill all fields
+          Fill all fields or check email format...
         </p>
       );
       setTimeout(() => {
@@ -24,20 +32,64 @@ export default function Home() {
       }, 3000);
       return;
     }
-    setMessage(
-      <p className="text-3xl w-[620px]  mx-10 text-white bg-green-600 mb-5">
-        Your review has been submitted, Thank you!
-      </p>
-    );
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
-    console.log(nameInput, messageInput);
+    try {
+      const response = await fetch("/api/postReview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: emailInput, message: messageInput }),
+      });
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setMessage(
+          <p className="text-3xl w-[620px]  mx-10 text-white bg-green-600 mb-5">
+            Your review has been submitted, Thank you!
+          </p>
+        );
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
+      } else {
+        setMessage(
+          <p className="text-3xl w-[620px] mx-10 text-white bg-red-600 mb-5">
+            Failed to submit review.
+          </p>
+        );
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
+      }
+    } catch (error) {
+      setMessage(
+        <p className="text-3xl w-[620px] mx-10 text-white bg-red-600 mb-5">
+          An error occured...
+        </p>
+      );
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    }
   };
 
-  const toggleReview = (e) => {
+  const toggleReview = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await fetch("/api/fetchReview");
+      if (!response.ok) {
+        throw new Error("Failed to fetch reviews");
+      }
+      const data = await response.json();
+      setReviews(data);
+      const reviews = document.querySelector(".reviewDiv");
+
+      reviews.style.display = "block";
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
   };
+
   return (
     <section className="">
       <div className="heropage relative bg-bg9 w-[800px] h-[79vh]">
@@ -330,8 +382,58 @@ export default function Home() {
 
       {/* reviews */}
       <div className="pb-20 bg-bg9i w-[800px]">
-        <Button styles={"text-3xl mx-10"} onClick={toggleReview}>See Reviews</Button>
-        <div className="reviews"></div>
+        <Button styles={"text-3xl mx-10"} onClick={toggleReview}>
+          See Reviews
+        </Button>
+        <div className="reviews">
+          <div className="reviewDiv hidden ">
+            <Card styles={"w-[600px] rounded-lg mt-10"}>
+              <div className="flex overflow-x-auto space-x-4">
+                {isLoading ? (
+                  <div className="flex items-center justify-center w-full">
+                    <span className="text-3xl text-white">Loading...</span>
+                  </div>
+                ) : reviews?.length > 0 ? (
+                  // Split the reviews into chunks of 4
+                  Array.from(
+                    { length: Math.ceil(reviews.length / 4) },
+                    (_, index) => (
+                      <ul
+                        key={`review-group-${index}`}
+                        className="flex-shrink-0 w-[555px] bg-bg9i rounded-lg shadow-inner p-4 my-2 mx-5"
+                      >
+                        {reviews
+                          .slice(index * 4, (index + 1) * 4)
+                          .map((msg, idx) => (
+                            <div
+                              key={`review-wrapper-${index}-${idx}`}
+                              className="my-5"
+                            >
+                              <li
+                                key={`review-${index}-${idx}`}
+                                className="text-3xl font-semibold shadow-inner rounded-lg py-3 px-2 my-5 border-[#8C7264]"
+                              >
+                                <em className="underline">{msg.email}</em>{" "}
+                                <br />
+                                <span className="text-4xl">
+                                  {" "}
+                                  - {msg.message}.
+                                </span>
+                              </li>
+                            </div>
+                          ))}
+                      </ul>
+                    )
+                  )
+                ) : (
+                  <p className="text-3xl font-semibold text-white text-center py-3">
+                    No reviews found.
+                  </p>
+                )}
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     </section>
   );
