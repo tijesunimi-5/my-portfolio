@@ -27,7 +27,7 @@ body {
 .overlay {
   background: rgba(242, 234, 201, 0.2);
   width: 800px;
-  height: 80vh;
+  height: 70vh;
   position: absolute;
 }
 .welcomeText {

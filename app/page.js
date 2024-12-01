@@ -99,8 +99,8 @@ export default function Home() {
 
   return (
     <section className="lg:w-[1000px]">
-      <div className="heropage relative bg-bg9 w-[800px] h-[79vh] lg:w-[1000px] lg:h-[50vh] 2xl:w-[1519px] xl:w-[1280px] xl:h-[100vh]">
-        <img src="/gadgets.jpg" className="absolute w-[1600px] xl:h-[100vh]" />
+      <div className="heropage relative bg-bg9 w-[800px] h-[70vh] lg:w-[1000px] lg:h-[50vh] 2xl:w-[1519px] xl:w-[1280px] xl:h-[100vh]">
+        <img src="/gadgets.jpg" className="absolute w-[1600px] xl:h-[100vh] h-[70vh]" />
         <div className="overlay"></div>
         <h1 className="welcomeText text-6xl font-extrabold text-white tracking-normal relative pt-28 text-center xl:pt-56">
           Welcome to where vision meets innovation. Bringing your ideal website
@@ -129,13 +129,13 @@ export default function Home() {
           you achieve your vision.
         </p>
 
-        <p className="text-4xl pt-4 px-5 text-white font-bold pb-20">
+        <p className="text-4xl pt-4 px-5 text-white font-bold pb-10">
           Let's collaborate to create a digital masterpiece that showcases your
           brand's unique story and style. Get in touch, and let's bring your
           website to life
         </p>
 
-        <div className="pb-10" id="skills">
+        <div className="pb-5" id="skills">
           <h1 className="text-6xl font-bold underline text-center tracking-wider">
             Skills
           </h1>
@@ -203,7 +203,7 @@ export default function Home() {
         </div>
 
         {/* Services  */}
-        <div className="mt-20">
+        <div className="mt-0">
           <h1 className="text-5xl text-center">Services</h1>
           <ul className="mx-10 text-4xl my-5">
             <li>
