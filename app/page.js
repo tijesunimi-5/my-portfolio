@@ -2,6 +2,13 @@
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { useRef, useState, useEffect } from "react";
+import {
+  FaFacebook,
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaWhatsapp,
+  FaWhatsappSquare,
+} from "react-icons/fa";
 
 export default function Home() {
   const nameRef = useRef("");
@@ -91,16 +98,21 @@ export default function Home() {
   };
 
   return (
-    <section className="">
-      <div className="heropage relative bg-bg9 w-[800px] h-[79vh]">
-        <img src="/gadgets.jpg" className="absolute w-[1600px]" />
+    <section className="lg:w-[1000px]">
+      <div className="heropage relative bg-bg9 w-[800px] h-[79vh] lg:w-[1000px] lg:h-[50vh] 2xl:w-[1519px] xl:w-[1280px] xl:h-[100vh]">
+        <img src="/gadgets.jpg" className="absolute w-[1600px] xl:h-[100vh]" />
         <div className="overlay"></div>
-        <h1 className="welcomeText text-6xl font-extrabold text-white tracking-normal relative pt-28 text-center">
+        <h1 className="welcomeText text-6xl font-extrabold text-white tracking-normal relative pt-28 text-center xl:pt-56">
           Welcome to where vision meets innovation. Bringing your ideal website
           to life, one pixel at a time.
         </h1>
       </div>
-      <div className="bg-bg9 w-[800px] text-white pb-32" id="about">
+
+      {/* About */}
+      <div
+        className="bg-bg9 w-[800px] text-white pb-32 lg:w-[1000px] 2xl:w-[1519px] xl:w-[1280px]"
+        id="about"
+      >
         <p className="text-4xl pt-9 px-5 text-white font-bold">
           Hello, I'm Tijesunimi, the creative force behind Codelight. As a
           passionate frontend developer with 2+ years of experience, I've had
@@ -189,6 +201,7 @@ export default function Home() {
             </span>
           </div>
         </div>
+
         {/* Services  */}
         <div className="mt-20">
           <h1 className="text-5xl text-center">Services</h1>
@@ -222,7 +235,11 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="Projects" className="overflow-x-hidden pb-20 w-[800px] bg-bg9i">
+      {/* Projects */}
+      <div
+        id="Projects"
+        className="overflow-x-hidden pb-20 w-[800px] bg-bg9i lg:w-[1020px] overflow-hidden 2xl:w-[1519px] xl:w-[1280px]"
+      >
         <h1 className="text-5xl text-center underline tracking-wider font-bold mt-10 text-color3">
           Projects
         </h1>
@@ -264,7 +281,7 @@ export default function Home() {
             </Card>
           </div>
 
-          <div className="w-[700px] my-5">
+          <div className="w-[700px] my-5 ">
             <Card>
               <div className="w-[700px]">
                 <div className="flex gap-4 overflow-x-scroll mx-2 mt-2 rounded-lg">
@@ -326,10 +343,43 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div id="more" className="py-8 px-5 bg-bg9i w-[800px]">
+
+      {/* more  */}
+      <div
+        id="more"
+        className="py-8 px-5 bg-bg9i w-[800px] lg:w-[1020px] 2xl:w-[1519px] xl:w-[1280px]"
+      >
         <p className="text-4xl text-color3 font-semibold">
           I am not limited to what I can create, Just tell me your ideas (vision
           / expectation), I will code it to life.
+        </p>
+        <p className="text-4xl text-color3 font-semibold">
+          If you need my service, you can reach out to me on
+        </p>
+        <ul className="text-7xl flex text-color3 mt-2">
+          <a href="https://wa.me/07018268171">
+            <li>
+              <FaWhatsappSquare />
+            </li>
+          </a>
+
+          <a href="https://www.instagram.com/codelight_01/?__pwa=1#">
+            <li>
+              <FaInstagramSquare />
+            </li>
+          </a>
+
+          <a href="https://www.facebook.com/lightdesignii/">
+            <li>
+              <FaFacebookSquare />
+            </li>
+          </a>
+        </ul>
+        <p className="text-4xl text-color3 font-semibold my-2">
+          Or send a message{" "}
+          <a href="#contact" className="underline text-color3">
+            here
+          </a>
         </p>
 
         <a href="/cv.pdf" download={"Tijesunimi-Samuel.cv.pdf"}>
@@ -340,11 +390,14 @@ export default function Home() {
       </div>
 
       {/* contact-section */}
-      <div id="contact" className="w-[800px] py-20 bg-bg9i">
+      <div
+        id="contact"
+        className="w-[800px] py-20 bg-bg9i lg:w-[1020px] 2xl:w-[1519px] xl:w-[1280px]"
+      >
         <h1 className="text-center font-bold text-5xl text-color3">
           Send A Message
         </h1>
-        <form className="form flex flex-col w-[700px] bg-bg9 rounded-lg mx-12 mt-5">
+        <form className="form flex flex-col w-[700px] bg-bg9 rounded-lg mx-12 mt-5 lg:ml-40">
           <div className="my-5 mx-4 relative">
             <label htmlFor="email" className="text-3xl font-semibold mt-1">
               Email -{" "}
@@ -381,13 +434,17 @@ export default function Home() {
       </div>
 
       {/* reviews */}
-      <div className="pb-20 bg-bg9i w-[800px]">
+      <div className="pb-20 bg-bg9i w-[800px] lg:w-[1020px] 2xl:w-[1519px] xl:w-[1280px]">
         <Button styles={"text-3xl mx-10"} onClick={toggleReview}>
           See Reviews
         </Button>
         <div className="reviews">
           <div className="reviewDiv hidden ">
-            <Card styles={"w-[600px] rounded-lg mt-10"}>
+            <Card
+              styles={
+                "w-[600px] rounded-lg mt-10 lg:w-[1020px] 2xl:w-[1519px] xl:w-[1280px]"
+              }
+            >
               <div className="flex overflow-x-auto space-x-4">
                 {isLoading ? (
                   <div className="flex items-center justify-center w-full">
@@ -411,7 +468,7 @@ export default function Home() {
                             >
                               <li
                                 key={`review-${index}-${idx}`}
-                                className="text-3xl font-semibold shadow-inner rounded-lg py-3 px-2 my-5 border-[#8C7264]"
+                                className="reviewCard text-3xl font-semibold  rounded-lg py-3 px-2 my-5 border-[#8C7264]"
                               >
                                 <em className="underline">{msg.email}</em>{" "}
                                 <br />
