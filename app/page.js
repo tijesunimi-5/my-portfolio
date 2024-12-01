@@ -27,6 +27,8 @@ export default function Home() {
     const emailInput = nameRef.current.value;
     const messageInput = messageRef.current.value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const email = (document.getElementById("email").value = "");
+    const message = (document.getElementById("message").value = "");
 
     if (!emailInput || !messageInput || !emailRegex.test(emailInput)) {
       setMessage(
@@ -49,8 +51,7 @@ export default function Home() {
       });
       const result = await response.json();
       if (response.ok && result.success) {
-        const email = document.getElementById("email").value = "";
-        const message = document.getElementById("message").value = "";
+        
         setMessage(
           <p className="text-3xl w-[620px]  mx-10 text-white bg-green-600 mb-5">
             Your review has been submitted, Thank you!
@@ -83,17 +84,18 @@ export default function Home() {
 
   const toggleReview = async (e) => {
     e.preventDefault();
+    const reviews = document.querySelector(".reviewDiv");
+
+    reviews.style.display = "block";
 
     try {
       const response = await fetch("/api/fetchReview");
+
       if (!response.ok) {
         throw new Error("Failed to fetch reviews");
       }
       const data = await response.json();
       setReviews(data);
-      const reviews = document.querySelector(".reviewDiv");
-
-      reviews.style.display = "block";
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -102,7 +104,10 @@ export default function Home() {
   return (
     <section className="lg:w-[1000px]">
       <div className="heropage relative bg-bg9 w-[800px] h-[70vh] lg:w-[1000px] lg:h-[50vh] 2xl:w-[1519px] xl:w-[1280px] xl:h-[100vh]">
-        <img src="/gadgets.jpg" className="absolute w-[1600px] xl:h-[100vh] h-[70vh]" />
+        <img
+          src="/gadgets.jpg"
+          className="absolute w-[1600px] xl:h-[100vh] h-[70vh]"
+        />
         <div className="overlay"></div>
         <h1 className="welcomeText text-6xl font-extrabold text-white tracking-normal relative pt-28 text-center xl:pt-56">
           Welcome to where vision meets innovation. Bringing your ideal website
@@ -401,7 +406,10 @@ export default function Home() {
         </h1>
         <form className="form flex flex-col w-[700px] bg-bg9 rounded-lg mx-12 mt-5 lg:ml-40">
           <div className="my-5 mx-4 relative">
-            <label htmlFor="email" className="text-3xl font-semibold mt-1">
+            <label
+              htmlFor="email"
+              className="text-3xl font-semibold mt-1 text-white"
+            >
               Email -{" "}
             </label>
             <input
@@ -414,7 +422,7 @@ export default function Home() {
           <div>
             <label
               htmlFor="message"
-              className="text-3xl font-semibold mx-4 pb-2"
+              className="text-3xl font-semibold mx-4 pb-2 text-white"
             >
               Message -
             </label>
@@ -441,10 +449,10 @@ export default function Home() {
           See Reviews
         </Button>
         <div className="reviews">
-          <div className="reviewDiv hidden ">
+          <div className="  ">
             <Card
               styles={
-                "w-[600px] rounded-lg mt-10 lg:w-[1020px] 2xl:w-[1519px] xl:w-[1280px]"
+                "reviewDiv hidden w-[600px] rounded-lg mt-10 lg:w-[1020px] 2xl:w-[1519px] xl:w-[1280px]"
               }
             >
               <div className="flex overflow-x-auto space-x-4">
