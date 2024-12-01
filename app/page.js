@@ -49,6 +49,8 @@ export default function Home() {
       });
       const result = await response.json();
       if (response.ok && result.success) {
+        const email = document.getElementById("email").value = "";
+        const message = document.getElementById("message").value = "";
         setMessage(
           <p className="text-3xl w-[620px]  mx-10 text-white bg-green-600 mb-5">
             Your review has been submitted, Thank you!
